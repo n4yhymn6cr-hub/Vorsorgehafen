@@ -264,6 +264,48 @@ section { width: 100%; }
 .final-cta p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 36px; }
 .final-meta { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 18px; }
 
+/* ── DEPOT VERGLEICH ── */
+.depot-compare { max-width: 1200px; margin: 0 auto; padding: 48px 48px 0; }
+.depot-compare-h3 { font-family: var(--serif); font-size: clamp(24px, 2.5vw, 36px); font-weight: 300; color: var(--navy); margin-bottom: 8px; }
+.depot-compare-sub { font-size: 13px; color: var(--fg3); margin-bottom: 24px; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ver-table { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 0; min-width: 520px; }
+.ver-head { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 20px; background: var(--navy); color: rgba(255,255,255,0.6); }
+.ver-head:first-child { background: transparent; }
+.ver-head.amber { background: var(--amber); color: rgba(255,255,255,0.8); }
+.ver-cell { padding: 14px 20px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--fg2); display: flex; align-items: center; }
+.ver-cell.label { font-weight: 500; color: var(--fg1); background: white; }
+.ver-cell.good { color: var(--success); }
+.ver-cell.neutral { color: var(--fg3); }
+.ver-cell.bad { color: #C53030; }
+.depot-example { margin-top: 28px; }
+.depot-example-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); margin-bottom: 12px; }
+.example-table { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 3px rgba(27,49,80,0.07); min-width: 400px; }
+.et-head { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; background: var(--navy); padding: 12px 20px; gap: 12px; }
+.et-head span { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.et-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 12px 20px; gap: 12px; border-bottom: 1px solid var(--border); }
+.et-row:last-child { border-bottom: none; }
+.et-row:nth-child(even) { background: var(--nebel); }
+.et-row span { font-size: 14px; color: var(--fg1); }
+.et-row span.mono { font-family: var(--mono); color: var(--navy); }
+.et-row span.amber { font-family: var(--mono); color: var(--amber); font-weight: 500; }
+
+/* ── ÜBER UNS ── */
+.ueber-uns { background: var(--white); padding: 96px 0; }
+.ueber-uns-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 1fr 380px; gap: 72px; align-items: center; }
+.ueber-uns h2 { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 46px); font-weight: 300; color: var(--navy); margin-bottom: 20px; line-height: 1.15; }
+.ueber-uns-text { font-size: 16px; line-height: 1.75; color: var(--fg2); margin-bottom: 20px; }
+.ueber-cred-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.ueber-cred-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--fg2); }
+.ueber-cred-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 6px; }
+.berater-profile-card { background: var(--nebel); border-radius: 18px; padding: 32px; text-align: center; border: 1px solid var(--border); }
+.berater-avatar-xl { width: 80px; height: 80px; border-radius: 50%; background: var(--watt); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--navy); margin: 0 auto 16px; }
+.berater-profile-name { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.berater-profile-role { font-size: 13px; color: var(--fg3); margin-bottom: 16px; line-height: 1.4; }
+.berater-profile-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.berater-profile-tag { font-size: 11px; font-weight: 600; background: var(--watt); color: var(--navy); padding: 4px 10px; border-radius: 999px; }
+.berater-profile-note { font-size: 13px; color: var(--fg2); line-height: 1.6; padding-top: 16px; border-top: 1px solid var(--border); }
+
 /* ── HAMBURGER / MOBILE NAV ── */
 .nav-right { display: flex; align-items: center; gap: 10px; }
 .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 4px; flex-shrink: 0; }
@@ -310,6 +352,12 @@ section { width: 100%; }
   .depot { padding: 60px 0; }
   .depot-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 20px; }
   .depot h2 { font-size: 28px; }
+  .depot-compare { padding: 36px 20px 0; }
+  .depot-compare-h3 { font-size: 22px; }
+
+  .ueber-uns { padding: 60px 0; }
+  .ueber-uns-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 20px; }
+  .ueber-uns h2 { font-size: 26px; }
 
   .rechner { padding: 60px 0; }
   .rechner-inner { padding: 0 20px; }
@@ -378,8 +426,8 @@ footer { background: #111E2E; padding: 48px 0; }
       <span class="logo-text"><span class="logo-light">Vorsorge</span><span class="logo-bold">hafen</span></span>
     </a>
     <div class="nav-links">
-      <a href="altersvorsorge-depot.html">Altersvorsorge-Depot</a>
-      <a href="#">Über uns</a>
+      <a href="#rechner">Förderungsrechner</a>
+      <a href="#ueber-uns">Wer wir sind</a>
     </div>
     <div class="nav-right">
       <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
@@ -389,8 +437,9 @@ footer { background: #111E2E; padding: 48px 0; }
     </div>
   </div>
   <div class="mobile-nav" id="mobile-nav">
-    <a href="altersvorsorge-depot.html">Altersvorsorge-Depot</a>
-    <a href="#">Über uns</a>
+    <a href="#rechner">Förderungsrechner</a>
+    <a href="#ueber-uns">Wer wir sind</a>
+    <a href="erstgespraech.html">Erstgespräch vereinbaren</a>
   </div>
 </nav>
 
@@ -405,14 +454,9 @@ footer { background: #111E2E; padding: 48px 0; }
         <a href="erstgespraech.html" class="btn btn-navy btn-lg">Kostenloses Erstgespräch vereinbaren</a>
       </div>
       <div class="hero-trust">
-        <div class="trust-item"><span class="ti-v">
-</span><span class="ti-l">
-</span></div>
-        <div class="trust-item"><span class="ti-v">
-</span><span class="ti-l">Keine Produktbindung</span></div>
-        <div class="trust-item"><span class="ti-v">
-</span><span class="ti-l">
-</span></div>
+        <div class="trust-item"><span class="ti-v">§34f + §34d GewO</span><span class="ti-l">Zugelassen & reguliert</span></div>
+        <div class="trust-item"><span class="ti-v">Keine Provision</span><span class="ti-l">Keine Produktbindung</span></div>
+        <div class="trust-item"><span class="ti-v">Kostenlos</span><span class="ti-l">Erstgespräch</span></div>
       </div>
     </div>
     <div class="lighthouse-hero">
@@ -494,7 +538,7 @@ footer { background: #111E2E; padding: 48px 0; }
 </section>
 
 <!-- ── DEPOT ERKLÄRT ── -->
-<section class="depot">
+<section class="depot" id="depot">
   <div class="depot-inner">
     <div>
       <div class="section-label">Altersvorsorge-Depot</div>
@@ -507,7 +551,7 @@ footer { background: #111E2E; padding: 48px 0; }
         <div class="df"><div class="df-dot"></div><div class="df-text">Gilt für Arbeitnehmer <em>und</em> Selbstständige</div></div>
       </div>
       <div style="margin-top:28px;">
-        <a href="altersvorsorge-depot.html" class="btn btn-ghost">Alles zum Depot erfahren →</a>
+        <a href="#rechner" class="btn btn-ghost">Meine Förderung berechnen →</a>
       </div>
     </div>
     <div class="depot-box">
@@ -519,6 +563,50 @@ footer { background: #111E2E; padding: 48px 0; }
       <div class="db-row"><span class="db-key">Berechtigt</span><span class="db-val">Arbeitnehmer & Selbstständige</span></div>
       <div class="db-row"><span class="db-key">Kostendeckel Standarddepot</span><span class="db-val">1 % p. a.</span></div>
       <div style="margin-top:16px;padding:12px;background:var(--amber-light);border-radius:8px;font-size:11px;color:#7A5020;line-height:1.5;">Nach aktuellem Reformstand, Stand April 2026. Bundesrat-Abstimmung ausstehend.</div>
+    </div>
+  </div>
+
+  <div class="depot-compare">
+    <h3 class="depot-compare-h3">Was ist der Unterschied zu Riester?</h3>
+    <p class="depot-compare-sub">Vereinfachte Darstellung nach aktuellem Reformstand, Stand April 2026. Kein Ersatz für individuelle Beratung.</p>
+    <div class="table-scroll">
+      <div class="ver-table">
+        <div class="ver-head"></div>
+        <div class="ver-head">Altersvorsorge-Depot</div>
+        <div class="ver-head amber">Riester (alt)</div>
+        <div class="ver-cell label">Anlageinstrument</div>
+        <div class="ver-cell good">ETFs, freie Fondswahl</div>
+        <div class="ver-cell bad">Garantieprodukte, eingeschränkt</div>
+        <div class="ver-cell label">Kosten</div>
+        <div class="ver-cell good">Max. 1 % p.a. (Standarddepot)</div>
+        <div class="ver-cell bad">Oft 2–3 % p.a. oder mehr</div>
+        <div class="ver-cell label">Transparenz</div>
+        <div class="ver-cell good">Klar und nachvollziehbar</div>
+        <div class="ver-cell bad">Komplex, schwer vergleichbar</div>
+        <div class="ver-cell label">Für Selbstständige</div>
+        <div class="ver-cell good">Ja</div>
+        <div class="ver-cell bad">Eingeschränkt / Nein</div>
+        <div class="ver-cell label">Neuzugänge ab 2027</div>
+        <div class="ver-cell good">Ja</div>
+        <div class="ver-cell bad">Nicht mehr möglich</div>
+        <div class="ver-cell label">Bestandsverträge</div>
+        <div class="ver-cell neutral">—</div>
+        <div class="ver-cell neutral">Laufen weiter (Bestandsschutz)</div>
+      </div>
+    </div>
+    <div class="depot-example">
+      <div class="depot-example-title">Beispiel: Wie viel kommt tatsächlich ins Depot?</div>
+      <div class="table-scroll">
+        <div class="example-table">
+          <div class="et-head">
+            <span>Monatsbeitrag</span><span>Jahresbeitrag</span><span>Staatl. Zulage</span><span>Gesamtbeitrag</span>
+          </div>
+          <div class="et-row"><span>30 €</span><span>360 €</span><span class="amber">180 €</span><span class="mono">540 €</span></div>
+          <div class="et-row"><span>60 €</span><span>720 €</span><span class="amber">270 €</span><span class="mono">990 €</span></div>
+          <div class="et-row"><span>100 €</span><span>1.200 €</span><span class="amber">390 €</span><span class="mono">1.590 €</span></div>
+          <div class="et-row"><span>150 €</span><span>1.800 €</span><span class="amber">540 €</span><span class="mono">2.340 €</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -672,6 +760,35 @@ footer { background: #111E2E; padding: 48px 0; }
   </div>
 </section>
 
+<!-- ── ÜBER UNS ── -->
+<section class="ueber-uns" id="ueber-uns">
+  <div class="ueber-uns-inner">
+    <div>
+      <div class="section-label">Wer wir sind</div>
+      <h2>Ehrliche Beratung. Echte Menschen. Keine versteckten Interessen.</h2>
+      <p class="ueber-uns-text">Vorsorgehafen ist kein Vergleichsportal und kein Produktverkäufer. Wir beraten unabhängig — ohne Provision, ohne Produktbindung, ohne Verkaufsdruck.</p>
+      <p class="ueber-uns-text">Unser Ziel: Du verstehst deine Vorsorge-Situation und kannst eine informierte Entscheidung treffen. Ob das neue Depot für dich das Richtige ist — oder nicht.</p>
+      <div class="ueber-cred-list">
+        <div class="ueber-cred-item"><div class="ueber-cred-dot"></div><span>Zugelassen nach §34f + §34d GewO — reguliert und haftbar</span></div>
+        <div class="ueber-cred-item"><div class="ueber-cred-dot"></div><span>Keine Provisionen von Produktanbietern</span></div>
+        <div class="ueber-cred-item"><div class="ueber-cred-dot"></div><span>Kein Druck — auch wenn das Erstgespräch nichts kostet</span></div>
+        <div class="ueber-cred-item"><div class="ueber-cred-dot"></div><span>Spezialisiert auf das neue Altersvorsorge-Depot und Riester-Ablösungen</span></div>
+      </div>
+    </div>
+    <div class="berater-profile-card">
+      <div class="berater-avatar-xl">HM</div>
+      <div class="berater-profile-name">Henning Meyer</div>
+      <div class="berater-profile-role">Gründer & Finanzberater<br>Vorsorgehafen</div>
+      <div class="berater-profile-tags">
+        <span class="berater-profile-tag">§34f GewO</span>
+        <span class="berater-profile-tag">§34d GewO</span>
+        <span class="berater-profile-tag">Unabhängig</span>
+      </div>
+      <div class="berater-profile-note">Dein Ansprechpartner für alle Fragen rund um das neue Altersvorsorge-Depot, Riester-Bestandsverträge und persönliche Vorsorgeplanung.</div>
+    </div>
+  </div>
+</section>
+
 <!-- ── FAQ ── -->
 <section class="faq">
   <div class="faq-inner">
@@ -697,6 +814,18 @@ footer { background: #111E2E; padding: 48px 0; }
       <div class="faq-item">
         <div class="faq-q"><span>Ist das Altersvorsorgereformgesetz schon in Kraft?</span><div class="faq-icon">+</div></div>
         <div class="faq-a"><div class="faq-a-inner">Der Bundestag hat das Altersvorsorgereformgesetz am 27. März 2026 beschlossen. Die Bundesrat-Abstimmung steht noch aus. Der geplante Marktstart der Produkte ist der 01. Januar 2027. Alle Angaben auf dieser Website basieren auf dem aktuellen Reformstand und können sich durch Durchführungsverordnungen noch ändern.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Gilt das neue Depot auch für Beamte?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Die Förderberechtigung für Beamte ist nach aktuellem Reformstand noch nicht abschließend geklärt. Wir empfehlen, die individuelle Situation prüfen zu lassen — das ist genau der Zweck des kostenlosen Erstgesprächs.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Was passiert, wenn ich das Geld früher brauche?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Das Depot ist für die Altersvorsorge konzipiert. Eine vorzeitige Entnahme ist unter bestimmten Bedingungen möglich, führt aber in der Regel zur Rückforderung der staatlichen Zulagen. Die genauen Regelungen werden durch Durchführungsverordnungen noch festgelegt.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Welche Anbieter wird es geben?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Die konkreten Anbieter stehen noch nicht fest. Nach aktuellem Stand sollen Banken, Versicherungen und Fondsgesellschaften das Depot anbieten dürfen. Wir behalten den Markt im Blick und beraten dich zum richtigen Zeitpunkt über die beste Option für deine Situation.</div></div>
       </div>
     </div>
   </div>
@@ -726,11 +855,10 @@ footer { background: #111E2E; padding: 48px 0; }
       <span class="logo-text"><span class="logo-light">Vorsorge</span><span class="logo-bold">hafen</span></span>
     </a>
     <div class="footer-links">
-      <a href="altersvorsorge-depot.html">Altersvorsorge-Depot</a>
       <a href="erstgespraech.html">Erstgespräch</a>
-      <a href="#">Über uns</a>
-      <a href="#">Impressum</a>
-      <a href="#">Datenschutz</a>
+      <a href="#ueber-uns">Wer wir sind</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
     </div>
   </div>
   <div class="footer-legal">Zugelassen nach § 34f + § 34d GewO · Henning Meyer · Vorsorgehafen · Alle Angaben nach aktuellem Reformstand, Stand April 2026 · Kein Ersatz für individuelle Beratung.</div>
