@@ -179,7 +179,7 @@ section { width: 100%; }
 .rechner h2 { font-family: var(--serif); font-size: clamp(30px, 3vw, 44px); font-weight: 300; line-height: 1.15; color: var(--navy); margin-bottom: 10px; }
 .rechner-sub { font-size: 16px; color: var(--fg2); margin-bottom: 40px; }
 .rechner-card { background: var(--cream); border: 1px solid var(--border); border-radius: 18px; padding: 40px; }
-.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
 .rc-input-label { font-size: 13px; font-weight: 500; color: var(--fg1); margin-bottom: 10px; }
 .rc-slider-wrap { display: flex; flex-direction: column; gap: 8px; }
 .rc-slider { width: 100%; -webkit-appearance: none; height: 6px; border-radius: 999px; background: var(--border); outline: none; cursor: pointer; }
@@ -198,6 +198,21 @@ section { width: 100%; }
 .rr-value.amber { color: var(--amber); }
 .rr-value.green { color: var(--success); }
 .rechner-disclaimer { font-size: 11px; color: var(--fg3); margin-top: 16px; line-height: 1.5; }
+.rc-input-group { margin-bottom: 24px; }
+.rc-input-group:last-child { margin-bottom: 0; }
+.rc-pill-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.rc-pill { display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: white; font-size: 13px; font-family: var(--sans); color: var(--fg1); cursor: pointer; transition: all 180ms; line-height: 1; }
+.rc-pill.active { border-color: var(--navy); background: var(--navy); color: white; }
+.rc-pill:hover:not(.active) { border-color: var(--navy); }
+.rc-toggle-wrap { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.rc-toggle { width: 40px; height: 22px; border-radius: 999px; background: var(--border); cursor: pointer; position: relative; border: none; transition: background 200ms; flex-shrink: 0; }
+.rc-toggle::after { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: white; top: 3px; left: 3px; transition: transform 200ms; }
+.rc-toggle.on { background: var(--navy); }
+.rc-toggle.on::after { transform: translateX(18px); }
+.rc-toggle-label { font-size: 13px; color: var(--fg1); line-height: 1.4; }
+.rc-result-detail { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.rc-result-row.total { background: var(--amber); }
+.rc-bonus-badge { display: inline-flex; align-items: center; background: var(--amber); color: white; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-top: 8px; }
 
 /* ── FÜR WEN ── */
 .fuer-wen { background: var(--nebel); padding: 96px 0; }
@@ -301,6 +316,8 @@ section { width: 100%; }
   .rechner h2 { font-size: 26px; }
   .rechner-card { padding: 24px 20px; }
   .rc-grid { grid-template-columns: 1fr; gap: 28px; }
+  .rc-pill { font-size: 12px; padding: 6px 11px; }
+  .rc-toggle-label { font-size: 12px; }
 
   .fuer-wen { padding: 60px 0; }
   .fuer-wen-inner { padding: 0 20px; }
@@ -514,34 +531,87 @@ footer { background: #111E2E; padding: 48px 0; }
     <p class="rechner-sub">Berechne deine persönliche staatliche Förderung — schnell und unverbindlich.</p>
     <div class="rechner-card">
       <div class="rc-grid">
-        <div>
-          <div class="rc-input-label">Dein monatlicher Eigenbeitrag</div>
-          <div class="rc-slider-wrap">
-            <input type="range" class="rc-slider" id="slider" min="10" max="150" value="80" step="5">
-            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--fg3)"><span>10 €</span><span>150 €</span></div>
+        <div class="rc-inputs">
+          <div class="rc-input-group">
+            <div class="rc-input-label">Dein monatlicher Eigenbeitrag</div>
+            <div class="rc-slider-wrap">
+              <input type="range" class="rc-slider" id="slider" min="10" max="150" value="80" step="5">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--fg3)"><span>10 €</span><span>150 €</span></div>
+            </div>
+            <div style="margin-top:16px;">
+              <div class="rc-value-display" id="monthly-display">80 € / Mo.</div>
+              <div class="rc-value-label" id="annual-display">960 € / Jahr Eigenbeitrag</div>
+            </div>
           </div>
-          <div style="margin-top:24px;">
-            <div class="rc-value-display" id="monthly-display">80 € / Mo.</div>
-            <div class="rc-value-label" id="annual-display">960 € / Jahr Eigenbeitrag</div>
+          <div class="rc-input-group">
+            <div class="rc-input-label">Anzahl Kinder</div>
+            <div class="rc-pill-group" id="kinder-group">
+              <button class="rc-pill active" data-value="0">Keine</button>
+              <button class="rc-pill" data-value="1">1 Kind</button>
+              <button class="rc-pill" data-value="2">2 Kinder</button>
+              <button class="rc-pill" data-value="3">3+</button>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <div class="rc-input-label">Jahresbruttoeinkommen</div>
+            <div class="rc-pill-group" id="einkommen-group">
+              <button class="rc-pill" data-rate="0.21">bis 17 T€</button>
+              <button class="rc-pill active" data-rate="0.30">17–37 T€</button>
+              <button class="rc-pill" data-rate="0.37">37–57 T€</button>
+              <button class="rc-pill" data-rate="0.42">über 57 T€</button>
+            </div>
+          </div>
+          <div class="rc-input-group" style="margin-bottom:0">
+            <div class="rc-input-label">Berufseinsteiger-Bonus</div>
+            <div class="rc-toggle-wrap">
+              <button class="rc-toggle" id="bonus-toggle" aria-pressed="false"></button>
+              <span class="rc-toggle-label">Unter 25 — einmaliger Startbonus von <strong>200 €</strong></span>
+            </div>
+            <div id="bonus-badge" style="display:none;"><span class="rc-bonus-badge">+ 200 € Einmalbonus wird berücksichtigt</span></div>
           </div>
         </div>
         <div class="rc-result" id="result-box">
           <div class="rc-result-row primary">
-            <span class="rr-label on-dark">Staatliche Förderung</span>
-            <span class="rr-value on-dark" id="r-zulage">—</span>
+            <div>
+              <div class="rr-label on-dark">Grundzulage</div>
+              <div class="rc-result-detail">staatliche Grundförderung / Jahr</div>
+            </div>
+            <span class="rr-value on-dark" id="r-grundzulage">—</span>
           </div>
-          <div class="rc-result-row secondary">
-            <span class="rr-label" style="color:var(--navy)">Dein Eigenbeitrag</span>
-            <span class="rr-value amber" id="r-eigen">—</span>
+          <div class="rc-result-row secondary" id="kinderzulage-row" style="display:none;">
+            <div>
+              <div class="rr-label" style="color:var(--navy)">Kinderzulage</div>
+              <div style="font-size:11px;color:var(--fg3)" id="kinderzulage-detail">300 € × 1 Kind</div>
+            </div>
+            <span class="rr-value amber" id="r-kinderzulage">—</span>
           </div>
           <div class="rc-result-row tertiary">
-            <span class="rr-label" style="color:var(--success)">Gesamtbeitrag / Jahr</span>
+            <div>
+              <div class="rr-label" style="color:var(--success)">Steuerbonus</div>
+              <div style="font-size:11px;color:var(--fg3)" id="steuerbonus-detail">Sonderausgabenabzug</div>
+            </div>
+            <span class="rr-value green" id="r-steuerbonus">—</span>
+          </div>
+          <div class="rc-result-row total">
+            <div>
+              <div class="rr-label" style="color:white;font-weight:600">Gesamtförderung / Jahr</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75)" id="foerderquote-label">— % deines Jahresbeitrags</div>
+            </div>
+            <span class="rr-value" style="color:white;font-size:22px" id="r-gesamt-foerderung">—</span>
+          </div>
+          <div style="height:1px;background:var(--border);margin:4px 2px;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px;">
+            <span style="font-size:13px;color:var(--fg2)">Dein Eigenbeitrag / Jahr</span>
+            <span style="font-family:var(--mono);font-size:16px;color:var(--navy)" id="r-eigen">—</span>
+          </div>
+          <div class="rc-result-row tertiary">
+            <span class="rr-label" style="color:var(--success)">Gesamtbeitrag ins Depot / Jahr</span>
             <span class="rr-value green" id="r-gesamt">—</span>
           </div>
         </div>
       </div>
     </div>
-    <p class="rechner-disclaimer">* Schätzung nach aktuellem Reformstand (Bundestag-Beschluss 27.03.2026). Kein Ersatz für individuelle Beratung. Die tatsächliche Förderung kann je nach Einkommenssituation abweichen.</p>
+    <p class="rechner-disclaimer">* Schätzung nach aktuellem Reformstand (Bundestag-Beschluss 27.03.2026). Steuerbonus basiert auf Sonderausgabenabzug inkl. Günstigerprüfung (Grenzsteuersatz × Gesamtbeitrag × 1,055 − Zulagen). Kein Ersatz für individuelle Beratung.</p>
   </div>
 </section>
 
@@ -692,26 +762,83 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ── Rechner ──
-const slider = document.getElementById('slider');
-function calcZulage(monthly) {
-  const annual = monthly * 12;
-  let zulage;
-  if (annual <= 360) zulage = annual * 0.5;
-  else zulage = 180 + Math.min(annual - 360, 1440) * 0.25;
-  zulage = Math.round(Math.min(zulage, 540));
-  return { annual, zulage };
-}
-function updateRechner() {
-  const m = parseInt(slider.value);
-  const { annual, zulage } = calcZulage(m);
-  document.getElementById('monthly-display').textContent = m + ' € / Mo.';
-  document.getElementById('annual-display').textContent = annual.toLocaleString('de') + ' € / Jahr Eigenbeitrag';
-  document.getElementById('r-zulage').textContent = zulage.toLocaleString('de') + ' € / Jahr';
-  document.getElementById('r-eigen').textContent = annual.toLocaleString('de') + ' € / Jahr';
-  document.getElementById('r-gesamt').textContent = (annual + zulage).toLocaleString('de') + ' € / Jahr';
-}
-slider.addEventListener('input', updateRechner);
-updateRechner();
+(function() {
+  const slider = document.getElementById('slider');
+  let numKinder = 0;
+  let marginalRate = 0.30;
+
+  function calcFoerderung(monthly, kinder, rate) {
+    const annual = monthly * 12;
+    let grundZulage;
+    if (annual <= 360) grundZulage = Math.round(annual * 0.5);
+    else grundZulage = Math.round(180 + Math.min(annual - 360, 1440) * 0.25);
+    grundZulage = Math.min(grundZulage, 540);
+    const kinderZulage = kinder * 300;
+    const totalSubsidies = grundZulage + kinderZulage;
+    const deductibleBase = Math.min(annual + totalSubsidies, 3000);
+    const taxSaving = Math.round(deductibleBase * rate * 1.055);
+    const steuerBonus = Math.max(0, taxSaving - totalSubsidies);
+    return { annual, grundZulage, kinderZulage, steuerBonus };
+  }
+
+  function fmt(n) { return n.toLocaleString('de') + ' €'; }
+
+  function updateRechner() {
+    const m = parseInt(slider.value);
+    const { annual, grundZulage, kinderZulage, steuerBonus } = calcFoerderung(m, numKinder, marginalRate);
+    const totalFoerderung = grundZulage + kinderZulage + steuerBonus;
+    const foerderQuote = annual > 0 ? Math.round(totalFoerderung / annual * 100) : 0;
+    const gesamtBeitrag = annual + grundZulage + kinderZulage;
+
+    document.getElementById('monthly-display').textContent = m + ' € / Mo.';
+    document.getElementById('annual-display').textContent = annual.toLocaleString('de') + ' € / Jahr Eigenbeitrag';
+    document.getElementById('r-grundzulage').textContent = fmt(grundZulage);
+
+    const kindRow = document.getElementById('kinderzulage-row');
+    if (kinderZulage > 0) {
+      kindRow.style.display = 'flex';
+      document.getElementById('r-kinderzulage').textContent = fmt(kinderZulage);
+      document.getElementById('kinderzulage-detail').textContent = '300 € × ' + numKinder + (numKinder === 1 ? ' Kind' : ' Kinder');
+    } else {
+      kindRow.style.display = 'none';
+    }
+
+    document.getElementById('r-steuerbonus').textContent = steuerBonus > 0 ? fmt(steuerBonus) : '0 €';
+    document.getElementById('steuerbonus-detail').textContent = Math.round(marginalRate * 100) + '% Grenzsteuersatz · Günstigerprüfung';
+    document.getElementById('r-gesamt-foerderung').textContent = fmt(totalFoerderung);
+    document.getElementById('foerderquote-label').textContent = '+' + foerderQuote + '% deines Jahresbeitrags';
+    document.getElementById('r-eigen').textContent = fmt(annual);
+    document.getElementById('r-gesamt').textContent = fmt(gesamtBeitrag) + ' / Jahr';
+  }
+
+  slider.addEventListener('input', updateRechner);
+
+  document.getElementById('kinder-group').addEventListener('click', function(e) {
+    const pill = e.target.closest('.rc-pill');
+    if (!pill) return;
+    this.querySelectorAll('.rc-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    numKinder = parseInt(pill.dataset.value);
+    updateRechner();
+  });
+
+  document.getElementById('einkommen-group').addEventListener('click', function(e) {
+    const pill = e.target.closest('.rc-pill');
+    if (!pill) return;
+    this.querySelectorAll('.rc-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    marginalRate = parseFloat(pill.dataset.rate);
+    updateRechner();
+  });
+
+  document.getElementById('bonus-toggle').addEventListener('click', function() {
+    const isOn = this.classList.toggle('on');
+    this.setAttribute('aria-pressed', isOn);
+    document.getElementById('bonus-badge').style.display = isOn ? 'block' : 'none';
+  });
+
+  updateRechner();
+})();
 
 // ── FAQ ──
 document.getElementById('faq').addEventListener('click', e => {
