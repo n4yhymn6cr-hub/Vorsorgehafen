@@ -134,6 +134,60 @@ footer{background:#111E2E;padding:40px 0;}
 .footer-links a{font-size:13px;color:rgba(255,255,255,0.4);transition:color 200ms;}
 .footer-links a:hover{color:rgba(255,255,255,0.7);}
 .footer-legal{font-size:11px;color:rgba(255,255,255,0.2);margin-top:20px;border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;max-width:1200px;margin:20px auto 0;padding-left:48px;padding-right:48px;}
+
+/* ── SCROLL WRAPPER FOR TABLES ── */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+/* ══════════════════════════════════════════
+   MOBILE RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .btn-amber { padding: 9px 14px; font-size: 13px; }
+
+  .page-hero { padding: 48px 0 36px; }
+  .page-hero .container { padding: 0 20px; }
+  .page-hero h1 { font-size: 30px; }
+  .page-hero .lead { font-size: 15px; margin-bottom: 24px; }
+  .btn-lg { padding: 13px 24px; font-size: 15px; }
+  .disclaimer-bar .container { padding: 0 20px; }
+
+  .was-ist { padding: 52px 0; }
+  .wi-inner { grid-template-columns: 1fr; gap: 28px; padding: 0 20px; }
+  .wi-inner h2 { font-size: 26px; }
+
+  .foerderung { padding: 52px 0; }
+  .foe-inner { padding: 0 20px; }
+  .foe-inner h2 { font-size: 26px; }
+  .foe-sub { font-size: 15px; margin-bottom: 28px; }
+  .foe-grid { grid-template-columns: 1fr; gap: 14px; margin-bottom: 20px; }
+  .example-table { min-width: 480px; }
+
+  .vergleich { padding: 52px 0; }
+  .ver-inner { padding: 0 20px; }
+  .ver-inner h2 { font-size: 26px; margin-bottom: 24px; }
+  .ver-table { min-width: 500px; }
+
+  .faq { padding: 52px 0; }
+  .faq-inner { padding: 0 20px; }
+  .faq-inner h2 { font-size: 26px; margin-bottom: 28px; }
+
+  .cta-section { padding: 52px 0; }
+  .cta-section .container { padding: 0 20px; }
+  .cta-section h2 { font-size: 26px; }
+  .cta-section p { font-size: 15px; }
+
+  footer { padding: 28px 0; }
+  .footer-inner { padding: 0 20px; flex-direction: column; gap: 20px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .footer-legal { padding: 16px 20px 0; }
+}
+
+@media (max-width: 480px) {
+  .page-hero h1 { font-size: 26px; }
+  .foe-card-amount { font-size: 26px; }
+}
 </style>
 </head>
 <body>
@@ -217,7 +271,7 @@ footer{background:#111E2E;padding:40px 0;}
       </div>
     </div>
 
-    <div class="example-table">
+    <div class="table-scroll"><div class="example-table">
       <div class="et-head">
         <span>Monatsbeitrag</span><span>Jahresbeitrag</span><span>Staatl. Zulage</span><span>Gesamtbeitrag</span>
       </div>
@@ -225,7 +279,7 @@ footer{background:#111E2E;padding:40px 0;}
       <div class="et-row"><span>60 €</span><span>720 €</span><span class="amber">270 €</span><span class="mono">990 €</span></div>
       <div class="et-row"><span>100 €</span><span>1.200 €</span><span class="amber">390 €</span><span class="mono">1.590 €</span></div>
       <div class="et-row"><span>150 €</span><span>1.800 €</span><span class="amber">540 €</span><span class="mono">2.340 €</span></div>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -233,7 +287,7 @@ footer{background:#111E2E;padding:40px 0;}
   <div class="ver-inner">
     <div class="section-label">Depot vs. Riester</div>
     <h2>Was ist der Unterschied zu Riester?</h2>
-    <div class="ver-table">
+    <div class="table-scroll"><div class="ver-table">
       <div class="ver-head"></div>
       <div class="ver-head">Altersvorsorge-Depot</div>
       <div class="ver-head amber">Riester (alt)</div>
@@ -261,7 +315,7 @@ footer{background:#111E2E;padding:40px 0;}
       <div class="ver-cell label">Bestandsverträge</div>
       <div class="ver-cell neutral">—</div>
       <div class="ver-cell neutral">Laufen weiter (Bestandsschutz)</div>
-    </div>
+    </div></div>
     <p style="margin-top:16px;font-size:12px;color:var(--fg3);">Vereinfachte Darstellung. Kein Ersatz für individuelle Beratung. Nach aktuellem Reformstand April 2026.</p>
   </div>
 </section>
