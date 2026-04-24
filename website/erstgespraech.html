@@ -113,12 +113,25 @@ footer{background:#111E2E;padding:32px 0;margin-top:80px;}
 .footer-links a:hover{color:rgba(255,255,255,0.7);}
 .footer-legal{font-size:11px;color:rgba(255,255,255,0.2);margin-top:16px;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;max-width:1100px;margin:16px auto 0;padding-left:48px;padding-right:48px;}
 
+/* ── HAMBURGER / MOBILE NAV ── */
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px 4px; flex-shrink: 0; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: transform 250ms ease, opacity 250ms ease; }
+.mobile-nav { display: none; flex-direction: column; background: rgba(250,250,248,0.97); backdrop-filter: blur(12px); border-top: 1px solid var(--border); padding: 4px 20px 12px; }
+.mobile-nav a { font-size: 16px; color: var(--fg1); padding: 14px 0; border-bottom: 1px solid var(--border); display: block; }
+.mobile-nav a:last-child { border-bottom: none; }
+
 /* ══════════════════════════════════════════
    MOBILE RESPONSIVE
    ══════════════════════════════════════════ */
 @media (max-width: 768px) {
   nav { padding: 0 20px; }
   .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav.open { display: flex; }
+  nav.menu-open .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  nav.menu-open .hamburger span:nth-child(2) { opacity: 0; }
+  nav.menu-open .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .btn-amber { padding: 9px 14px; font-size: 13px; }
 
   .page-wrap { grid-template-columns: 1fr; gap: 36px; padding: 36px 20px 48px; }
@@ -158,7 +171,16 @@ footer{background:#111E2E;padding:32px 0;margin-top:80px;}
       <a href="altersvorsorge-depot.html">Altersvorsorge-Depot</a>
       <a href="#">Über uns</a>
     </div>
-    <a href="erstgespraech.html" class="btn btn-amber">Erstgespräch →</a>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="erstgespraech.html" class="btn btn-amber">Erstgespräch →</a>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="altersvorsorge-depot.html">Altersvorsorge-Depot</a>
+    <a href="#">Über uns</a>
   </div>
 </nav>
 
@@ -286,6 +308,24 @@ footer{background:#111E2E;padding:32px 0;margin-top:80px;}
 </footer>
 
 <script>
+// ── Hamburger ──
+(function() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-nav');
+  const nav = document.querySelector('nav');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    nav.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); nav.classList.remove('menu-open');
+  }));
+  document.addEventListener('click', e => {
+    if (!e.target.closest('nav')) { menu.classList.remove('open'); nav.classList.remove('menu-open'); }
+  });
+})();
+
 document.getElementById('contact-form').addEventListener('submit', function(e) {
   e.preventDefault();
   this.style.display = 'none';
