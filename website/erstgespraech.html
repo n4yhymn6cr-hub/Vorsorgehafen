@@ -77,33 +77,6 @@ h1 em{font-style:italic;color:var(--amber);}
 .booking-title{font-family:var(--serif);font-size:24px;font-weight:500;color:var(--navy);margin-bottom:6px;}
 .booking-sub{font-size:14px;color:var(--fg3);margin-bottom:28px;}
 
-/* Calendly embed placeholder */
-.calendly-placeholder{background:var(--nebel);border:2px dashed var(--border);border-radius:12px;padding:40px 24px;text-align:center;margin-bottom:24px;}
-.cp-icon{font-size:32px;margin-bottom:12px;}
-.cp-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px;}
-.cp-sub{font-size:13px;color:var(--fg3);margin-bottom:20px;line-height:1.5;}
-.cp-link{font-size:12px;color:var(--fg3);word-break:break-all;background:white;border:1px solid var(--border);border-radius:6px;padding:8px 12px;display:block;margin-top:12px;}
-
-/* OR divider */
-.or-divider{display:flex;align-items:center;gap:12px;margin:20px 0;}
-.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border);}
-.or-divider span{font-size:12px;color:var(--fg3);font-weight:500;}
-
-/* Contact form */
-.form-field{margin-bottom:16px;}
-.form-label{font-size:13px;font-weight:500;color:var(--fg1);margin-bottom:6px;display:block;}
-.form-input{font-family:var(--sans);font-size:14px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;background:white;color:var(--fg1);width:100%;outline:none;transition:border-color 200ms;}
-.form-input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,49,80,0.08);}
-.form-input::placeholder{color:var(--fg3);}
-textarea.form-input{resize:vertical;min-height:80px;}
-.form-note{font-size:11px;color:var(--fg3);margin-top:12px;line-height:1.5;}
-
-/* Success state */
-.success-state{display:none;text-align:center;padding:24px;}
-.success-state.show{display:block;}
-.success-icon{width:56px;height:56px;background:var(--success-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
-.success-title{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--navy);margin-bottom:8px;}
-.success-text{font-size:14px;color:var(--fg2);line-height:1.6;}
 
 /* ── FOOTER ── */
 footer{background:#111E2E;padding:32px 0;margin-top:80px;}
@@ -245,40 +218,13 @@ footer{background:#111E2E;padding:32px 0;margin-top:80px;}
   <!-- ── RIGHT: Booking ── -->
   <div class="booking-card">
     <div class="booking-title">Termin vereinbaren</div>
-    <div class="booking-sub">Wähle direkt einen Termin — oder schreib uns kurz.</div>
+    <div class="booking-sub">Wähle direkt einen freien Termin aus.</div>
 
     <!-- Calendly Inline-Widget Beginn -->
     <div class="calendly-inline-widget" data-url="https://calendly.com/vorsorgehafen-info/30min?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:280px;height:700px;"></div>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <!-- Calendly Inline-Widget Ende -->
 
-    <div class="or-divider"><span>oder direkt schreiben</span></div>
-
-    <!-- Contact form -->
-    <form id="contact-form">
-      <div class="form-field">
-        <label class="form-label" for="name">Dein Name</label>
-        <input class="form-input" id="name" type="text" placeholder="Vorname Nachname" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="email">E-Mail-Adresse</label>
-        <input class="form-input" id="email" type="email" placeholder="name@example.de" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="frage">Deine Frage oder Situation <span style="color:var(--fg3);font-weight:400">(optional)</span></label>
-        <textarea class="form-input" id="frage" placeholder="z.B. Ich habe einen Riester-Vertrag und frage mich, ob ich wechseln soll..."></textarea>
-      </div>
-      <button type="submit" class="btn btn-navy btn-lg">Nachricht senden</button>
-      <div class="form-note">Deine Daten werden ausschließlich für die Kontaktaufnahme verwendet und nicht an Dritte weitergegeben. Mit dem Absenden stimmst du der Verarbeitung zu. <a href="#" style="color:var(--amber)">Datenschutzerklärung</a></div>
-    </form>
-
-    <div class="success-state" id="success">
-      <div class="success-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F855A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="success-title">Nachricht gesendet.</div>
-      <div class="success-text">Wir melden uns innerhalb von 24 Stunden bei dir — meistens deutlich schneller.</div>
-    </div>
   </div>
 </div>
 
@@ -322,11 +268,6 @@ footer{background:#111E2E;padding:32px 0;margin-top:80px;}
   });
 })();
 
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  this.style.display = 'none';
-  document.getElementById('success').classList.add('show');
-});
 </script>
 </body>
 </html>
