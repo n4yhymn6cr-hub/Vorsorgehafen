@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorsorgehafen — Web App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body, #root { height: 100%; }
+  body { font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Components.jsx"></script>
+<script type="text/babel" src="Dashboard.jsx"></script>
+<script type="text/babel" src="Onboarding.jsx"></script>
+
+<script type="text/babel">
+// ── Plan Screen (simple placeholder) ───────────────────
+function PlanScreen({ onNavigate }) {
+  const items = [
+    { name:'ETF-Sparplan', provider:'Comdirect', monthly:'€ 150', total:'€ 18.450', status:'Aktiv', pct:62, color:VH_COLORS.hafenblau },
+    { name:'Riester-Rente', provider:'DWS TopRente', monthly:'€ 80', total:'€ 9.600', status:'Aktiv', pct:38, color:VH_COLORS.himmel },
+    { name:'Betriebsrente', provider:'Arbeitgeber AG', monthly:'€ 50', total:'€ 3.200', status:'Aktiv', pct:20, color:VH_COLORS.leuchtfeuer },
+  ];
+  return (
+    <div style={{ flex:1, overflow:'auto', background:VH_COLORS.nebel }}>
+      <VHTopBar title="Mein Vorsorgeplan" subtitle="3 aktive Bausteine · Stand April 2026" />
+      <div style={{ padding:'28px 32px', display:'flex', flexDirection:'column', gap:'16px' }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'18px', fontWeight:500, color:VH_COLORS.fg1 }}>Alle Vorsorgebausteine</div>
+          <VHButton variant="primary" size="sm">
+            <i data-lucide="plus" style={{ width:13, height:13 }}></i>
+            Baustein hinzufügen
+          </VHButton>
+        </div>
+        {items.map((item, i) => (
+          <div key={i} style={{ background:'white', borderRadius:'14px', padding:'22px', boxShadow:`0 1px 3px rgba(27,49,80,0.08)`, display:'grid', gridTemplateColumns:'1fr auto', gap:'16px', alignItems:'center', cursor:'pointer', transition:'box-shadow 200ms' }}
+            onMouseEnter={e => e.currentTarget.style.boxShadow='0 4px 16px rgba(27,49,80,0.12)'}
+            onMouseLeave={e => e.currentTarget.style.boxShadow='0 1px 3px rgba(27,49,80,0.08)'}>
+            <div>
+              <div style={{ display:'flex', alignItems:'center', gap:'10px', marginBottom:'10px' }}>
+                <div style={{ width:10, height:10, borderRadius:'50%', background:item.color }}></div>
+                <div style={{ fontSize:'15px', fontWeight:600, color:VH_COLORS.fg1 }}>{item.name}</div>
+                <VHBadge color="green">{item.status}</VHBadge>
+              </div>
+              <div style={{ fontSize:'12px', color:VH_COLORS.fg3, marginBottom:'12px' }}>{item.provider}</div>
+              <VHProgress value={item.pct} color={item.color} label="Zielerreichung" sublabel={`${item.pct}%`} />
+            </div>
+            <div style={{ textAlign:'right', paddingLeft:'24px', borderLeft:`1px solid ${VH_COLORS.border}` }}>
+              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:'20px', color:VH_COLORS.tiefblau }}>{item.total}</div>
+              <div style={{ fontSize:'12px', color:VH_COLORS.fg3, marginTop:'4px' }}>{item.monthly} / Monat</div>
+            </div>
+          </div>
+        ))}
+        <VHInfoBox icon="info" title="Staatliche Förderung" body="Du nutzt aktuell die Riester-Förderung. Prüfe, ob du Anspruch auf zusätzliche Kinderzulage hast." color="blue" />
+      </div>
+    </div>
+  );
+}
+
+// ── Welcome Screen ──────────────────────────────────────
+function WelcomeScreen({ onStart }) {
+  return (
+    <div style={{ flex:1, display:'flex', height:'100vh', overflow:'hidden' }}>
+      {/* Left: content */}
+      <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'64px', background:'white' }}>
+        <div style={{ maxWidth:'440px' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:'12px', marginBottom:'48px' }}>
+            <img src="../../assets/logo-icon.svg" alt="icon" style={{ width:40, height:40 }} />
+            <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'24px', fontWeight:500, color:VH_COLORS.tiefblau }}>Vorsorgehafen</span>
+          </div>
+          <div style={{ fontSize:'11px', fontWeight:600, letterSpacing:'0.12em', textTransform:'uppercase', color:VH_COLORS.fg3, marginBottom:'14px' }}>Deine Altersvorsorge</div>
+          <h1 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'48px', fontWeight:300, color:VH_COLORS.fg1, lineHeight:1.1, letterSpacing:'-0.02em', marginBottom:'20px' }}>
+            Dein sicherer<br /><em style={{ fontStyle:'italic', color:VH_COLORS.hafenblau }}>Hafen</em> für die Rente
+          </h1>
+          <p style={{ fontSize:'16px', color:VH_COLORS.fg2, lineHeight:1.7, marginBottom:'36px' }}>
+            Wir übersetzen finanzielle Komplexität in klare, ruhige Entscheidungen — damit du weißt, wo du stehst und was als nächstes zu tun ist.
+          </p>
+          <div style={{ display:'flex', gap:'12px', alignItems:'center' }}>
+            <VHButton variant="primary" size="lg" onClick={onStart}>Jetzt starten</VHButton>
+            <VHButton variant="ghost" size="lg">Mehr erfahren</VHButton>
+          </div>
+          <div style={{ display:'flex', gap:'20px', marginTop:'40px' }}>
+            {[['Kostenlos', 'Kein Abo, kein Vertrieb'], ['Unabhängig', 'Keine Produktbindung'], ['Sicher', 'Deine Daten bleiben bei dir']].map(([t, s], i) => (
+              <div key={i}>
+                <div style={{ fontSize:'12px', fontWeight:600, color:VH_COLORS.fg1 }}>{t}</div>
+                <div style={{ fontSize:'11px', color:VH_COLORS.fg3, marginTop:'2px' }}>{s}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* Right: decorative */}
+      <div style={{ width:'420px', flexShrink:0, background:VH_COLORS.tiefblau, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'48px', gap:'20px', position:'relative', overflow:'hidden' }}>
+        {/* Decorative circles */}
+        <div style={{ position:'absolute', width:'400px', height:'400px', borderRadius:'50%', border:`1px solid rgba(255,255,255,0.06)`, top:'-80px', right:'-80px' }}></div>
+        <div style={{ position:'absolute', width:'300px', height:'300px', borderRadius:'50%', border:`1px solid rgba(255,255,255,0.05)`, bottom:'-60px', left:'-60px' }}></div>
+        {/* Score preview */}
+        <div style={{ background:'rgba(255,255,255,0.06)', borderRadius:'18px', padding:'28px', width:'100%', border:`1px solid rgba(255,255,255,0.08)`, position:'relative', zIndex:1 }}>
+          <div style={{ fontSize:'10px', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:VH_COLORS.himmel, marginBottom:'10px' }}>Dein Vorsorge-Score</div>
+          <div style={{ fontFamily:"'DM Mono',monospace", fontSize:'56px', color:'white', lineHeight:1 }}>72</div>
+          <div style={{ fontSize:'13px', color:'rgba(255,255,255,0.5)', marginTop:'4px', marginBottom:'16px' }}>von 100 · Gut</div>
+          <div style={{ height:'4px', background:'rgba(255,255,255,0.12)', borderRadius:'999px' }}>
+            <div style={{ height:'100%', width:'72%', background:VH_COLORS.leuchtfeuer, borderRadius:'999px' }}></div>
+          </div>
+        </div>
+        {/* Mini cards */}
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px', width:'100%', position:'relative', zIndex:1 }}>
+          {[['Sparrate', '€ 280 / Mo.'], ['Lücke', '€ 840 / Mo.'], ['Ziel', '2049'], ['Abdeckung', '64%']].map(([l, v], i) => (
+            <div key={i} style={{ background:'rgba(255,255,255,0.06)', border:`1px solid rgba(255,255,255,0.08)`, borderRadius:'10px', padding:'14px' }}>
+              <div style={{ fontSize:'10px', color:'rgba(255,255,255,0.45)', marginBottom:'4px' }}>{l}</div>
+              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:'15px', color:'white' }}>{v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Root App ────────────────────────────────────────────
+function App() {
+  const [screen, setScreen] = React.useState('welcome'); // welcome | onboarding | app
+  const [appScreen, setAppScreen] = React.useState('dashboard');
+
+  // Init lucide after render
+  React.useEffect(() => {
+    if (window.lucide) lucide.createIcons();
+  });
+
+  if (screen === 'welcome') {
+    return <WelcomeScreen onStart={() => setScreen('onboarding')} />;
+  }
+
+  if (screen === 'onboarding') {
+    return (
+      <div style={{ display:'flex', height:'100vh' }}>
+        <OnboardingScreen onComplete={() => setScreen('app')} />
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display:'flex', height:'100vh', overflow:'hidden' }}>
+      <VHSidebar activeScreen={appScreen} onNavigate={setAppScreen} />
+      <div style={{ flex:1, display:'flex', flexDirection:'column', overflow:'hidden' }}>
+        {appScreen === 'dashboard' && <DashboardScreen onNavigate={setAppScreen} />}
+        {appScreen === 'plan'      && <PlanScreen onNavigate={setAppScreen} />}
+        {(appScreen === 'analyse' || appScreen === 'dokumente' || appScreen === 'settings') && (
+          <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', background:VH_COLORS.nebel, flexDirection:'column', gap:'12px' }}>
+            <div style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'24px', color:VH_COLORS.fg3 }}>
+              {appScreen.charAt(0).toUpperCase() + appScreen.slice(1)}
+            </div>
+            <div style={{ fontSize:'13px', color:VH_COLORS.fg3 }}>Dieser Bereich ist im UI Kit nicht ausgebaut.</div>
+            <VHButton variant="secondary" onClick={() => setAppScreen('dashboard')}>Zurück zur Übersicht</VHButton>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Uploads & working documents
+uploads/
+
+# Preview (Design-System-Previews, nicht für Produktion)
+preview/

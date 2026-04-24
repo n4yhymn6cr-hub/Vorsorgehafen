@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Altersvorsorge-Depot erklärt — Vorsorgehafen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1B3150; --navy-mid:#24456B; --amber:#C0873A; --amber-dark:#9A6A28;
+  --amber-light:#F2DEB0; --nebel:#F6F8FB; --sand:#F0ECE4; --cream:#FAFAF8;
+  --white:#FFFFFF; --border:#D8E2EE; --watt:#D6E4F0; --watt-lt:#EBF4FB;
+  --fg1:#1A2535; --fg2:#4A5568; --fg3:#8A96A3;
+  --success:#2F855A; --success-lt:#C6F6D5;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--fg1);background:var(--cream);-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.logo{display:flex;align-items:center;gap:10px;color:var(--navy);flex-shrink:0;}
+.logo-text{font-family:var(--sans);font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:var(--navy);line-height:1;}
+.logo-light{font-weight:300;}.logo-bold{font-weight:700;}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;}
+.nav-inner{max-width:1200px;margin:0 auto;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-size:14px;color:var(--fg2);transition:color 200ms;}
+.nav-links a:hover,.nav-links a.active{color:var(--navy);}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:500;border-radius:8px;border:none;cursor:pointer;transition:all 200ms;line-height:1;text-decoration:none;}
+.btn-amber{background:var(--amber);color:white;padding:10px 20px;font-size:14px;}
+.btn-amber:hover{background:var(--amber-dark);}
+.btn-navy{background:var(--navy);color:white;padding:12px 28px;font-size:15px;}
+.btn-navy:hover{background:var(--navy-mid);}
+.btn-lg{padding:14px 32px;font-size:16px;border-radius:9px;}
+.container{max-width:1200px;margin:0 auto;padding:0 48px;}
+.section-label{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg3);margin-bottom:14px;}
+.section-label.on-dark{color:rgba(255,255,255,0.4);}
+
+/* ── HERO ── */
+.page-hero{background:var(--navy);padding:80px 0 72px;}
+.page-hero .container{max-width:860px;}
+.page-hero .breadcrumb{font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:20px;}
+.page-hero .breadcrumb a{color:rgba(255,255,255,0.45);}
+.page-hero h1{font-family:var(--serif);font-size:clamp(36px,5vw,62px);font-weight:300;line-height:1.1;letter-spacing:-0.02em;color:white;margin-bottom:20px;}
+.page-hero h1 em{font-style:italic;color:var(--amber);}
+.page-hero .lead{font-size:18px;line-height:1.7;color:rgba(255,255,255,0.65);max-width:600px;margin-bottom:32px;}
+.disclaimer-bar{background:rgba(255,255,255,0.06);border-top:1px solid rgba(255,255,255,0.08);padding:14px 0;margin-top:48px;}
+.disclaimer-bar .container{font-size:12px;color:rgba(255,255,255,0.35);}
+
+/* ── WAS IST ── */
+.was-ist{background:var(--white);padding:80px 0;}
+.wi-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 440px;gap:72px;align-items:start;}
+.wi-inner h2{font-family:var(--serif);font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--navy);margin-bottom:20px;}
+.wi-text{font-size:16px;line-height:1.75;color:var(--fg2);margin-bottom:20px;}
+
+/* Info box */
+.info-box{background:var(--amber-light);border:1px solid rgba(192,135,58,0.2);border-left:3px solid var(--amber);border-radius:10px;padding:16px 18px;font-size:13px;color:#7A5020;line-height:1.6;}
+
+/* Sidebar card */
+.sidebar-card{background:var(--sand);border-radius:16px;padding:28px;}
+.sc-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:16px;letter-spacing:0.04em;}
+.sc-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(0,0,0,0.06);}
+.sc-row:last-child{border-bottom:none;padding-bottom:0;}
+.sc-key{font-size:12px;color:var(--fg3);}
+.sc-val{font-size:13px;font-weight:600;color:var(--navy);text-align:right;max-width:160px;}
+
+/* ── FÖRDERUNG ── */
+.foerderung{background:var(--nebel);padding:80px 0;}
+.foe-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
+.foe-inner h2{font-family:var(--serif);font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--navy);margin-bottom:10px;}
+.foe-sub{font-size:16px;color:var(--fg2);margin-bottom:48px;}
+.foe-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;}
+.foe-card{background:white;border-radius:14px;padding:28px;box-shadow:0 1px 3px rgba(27,49,80,0.07);}
+.foe-card-top{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg3);margin-bottom:10px;}
+.foe-card-amount{font-family:var(--mono);font-size:32px;color:var(--amber);margin-bottom:6px;}
+.foe-card-label{font-size:13px;color:var(--fg2);margin-bottom:14px;}
+.foe-bar-bg{height:6px;background:var(--border);border-radius:999px;margin-bottom:6px;}
+.foe-bar-fill{height:100%;border-radius:999px;background:var(--amber);}
+.foe-bar-label{font-size:11px;color:var(--fg3);}
+
+/* Example table */
+.example-table{background:white;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(27,49,80,0.07);}
+.et-head{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;background:var(--navy);padding:14px 24px;gap:16px;}
+.et-head span{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+.et-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:14px 24px;gap:16px;border-bottom:1px solid var(--border);}
+.et-row:last-child{border-bottom:none;}
+.et-row:nth-child(even){background:var(--nebel);}
+.et-row span{font-size:14px;color:var(--fg1);}
+.et-row span.mono{font-family:var(--mono);color:var(--navy);}
+.et-row span.amber{font-family:var(--mono);color:var(--amber);font-weight:500;}
+
+/* ── VERGLEICH RIESTER ── */
+.vergleich{background:var(--white);padding:80px 0;}
+.ver-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
+.ver-inner h2{font-family:var(--serif);font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--navy);margin-bottom:40px;}
+.ver-table{display:grid;grid-template-columns:200px 1fr 1fr;gap:0;}
+.ver-head{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:12px 20px;background:var(--navy);color:rgba(255,255,255,0.6);}
+.ver-head:first-child{background:transparent;}
+.ver-head.amber{background:var(--amber);color:rgba(255,255,255,0.8);}
+.ver-cell{padding:14px 20px;border-bottom:1px solid var(--border);font-size:14px;color:var(--fg2);display:flex;align-items:center;}
+.ver-cell.label{font-weight:500;color:var(--fg1);background:var(--sand);}
+.ver-cell.good{color:var(--success);}
+.ver-cell.neutral{color:var(--fg3);}
+.ver-cell.bad{color:#C53030;}
+
+/* ── FAQ ── */
+.faq{background:var(--sand);padding:80px 0;}
+.faq-inner{max-width:760px;margin:0 auto;padding:0 48px;}
+.faq-inner h2{font-family:var(--serif);font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--navy);margin-bottom:40px;}
+.faq-list{display:flex;flex-direction:column;border-top:1px solid var(--border);}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;gap:16px;}
+.faq-q span{font-size:15px;font-weight:500;color:var(--navy);line-height:1.4;}
+.faq-icon{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 200ms;color:var(--fg3);font-size:14px;}
+.faq-item.open .faq-icon{background:var(--navy);border-color:var(--navy);color:white;transform:rotate(45deg);}
+.faq-a{overflow:hidden;max-height:0;transition:max-height 350ms var(--ease);}
+.faq-a-inner{padding-bottom:18px;font-size:14px;line-height:1.7;color:var(--fg2);}
+.faq-item.open .faq-a{max-height:300px;}
+
+/* ── CTA ── */
+.cta-section{background:var(--navy);padding:80px 0;text-align:center;}
+.cta-section h2{font-family:var(--serif);font-size:clamp(28px,4vw,48px);font-weight:300;color:white;margin-bottom:14px;}
+.cta-section h2 em{font-style:italic;color:var(--amber);}
+.cta-section p{font-size:16px;color:rgba(255,255,255,0.55);margin-bottom:32px;}
+
+/* ── FOOTER ── */
+footer{background:#111E2E;padding:40px 0;}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;justify-content:space-between;align-items:center;}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,0.4);transition:color 200ms;}
+.footer-links a:hover{color:rgba(255,255,255,0.7);}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.2);margin-top:20px;border-top:1px solid rgba(255,255,255,0.06);padding-top:20px;max-width:1200px;margin:20px auto 0;padding-left:48px;padding-right:48px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg width="18" height="26" viewBox="0 0 22 34" fill="none">
+        <circle cx="11" cy="5.5" r="3.2" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="11" y1="8.7" x2="11" y2="32" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M3 23 L11 31 L19 23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="3" y1="15.5" x2="19" y2="15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text"><span class="logo-light">Vorsorge</span><span class="logo-bold">hafen</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="altersvorsorge-depot.html" class="active">Altersvorsorge-Depot</a>
+      <a href="#">Über uns</a>
+    </div>
+    <a href="erstgespraech.html" class="btn btn-amber">Erstgespräch →</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Vorsorgehafen</a> / Altersvorsorge-Depot</div>
+    <div class="section-label on-dark">Ab 01.01.2027</div>
+    <h1>Das neue Altersvorsorge-Depot — <em>erklärt.</em></h1>
+    <p class="lead">Was steckt hinter der größten Vorsorge-Reform seit Jahren? Wir erklären, was es bedeutet — und ob es für dich das Richtige ist.</p>
+    <a href="erstgespraech.html" class="btn btn-amber btn-lg">Kostenloses Erstgespräch vereinbaren</a>
+  </div>
+  <div class="disclaimer-bar">
+    <div class="container">Nach aktuellem Reformstand, Stand April 2026 · Bundestag-Beschluss vom 27.03.2026 · Bundesrat-Abstimmung ausstehend</div>
+  </div>
+</section>
+
+<section class="was-ist">
+  <div class="wi-inner">
+    <div>
+      <div class="section-label">Was ist das Depot?</div>
+      <h2>Eine neue Art der Altersvorsorge — mit echten Renditechancen.</h2>
+      <p class="wi-text">Das Altersvorsorge-Depot ist ein neues staatlich gefördertes Sparprodukt, das ab dem 1. Januar 2027 in Deutschland verfügbar sein soll. Anders als Riester kannst du damit in ETFs investieren — mit echten Renditechancen und transparenten Kosten.</p>
+      <p class="wi-text">Du zahlst monatlich ein, der Staat zahlt bis zu 540 Euro pro Jahr dazu.</p>
+      <div class="info-box">Nach aktuellem Reformstand (Bundestag-Beschluss 27.03.2026). Bundesrat-Abstimmung steht aus. Alle Angaben können sich durch Durchführungsverordnungen noch ändern.</div>
+    </div>
+    <div>
+      <div class="sidebar-card">
+        <div class="sc-title">Eckdaten im Überblick</div>
+        <div class="sc-row"><span class="sc-key">Geplanter Start</span><span class="sc-val">01. Jan. 2027</span></div>
+        <div class="sc-row"><span class="sc-key">Max. Grundzulage</span><span class="sc-val">540 € / Jahr</span></div>
+        <div class="sc-row"><span class="sc-key">Fördersatz (bis 360 €)</span><span class="sc-val">50 %</span></div>
+        <div class="sc-row"><span class="sc-key">Fördersatz (360–1.800 €)</span><span class="sc-val">25 %</span></div>
+        <div class="sc-row"><span class="sc-key">Berechtigt</span><span class="sc-val">Arbeitn. & Selbstständige</span></div>
+        <div class="sc-row"><span class="sc-key">Kostendeckel (Std.)</span><span class="sc-val">1 % p.a.</span></div>
+        <div class="sc-row"><span class="sc-key">Anlageinstrument</span><span class="sc-val">ETFs, Fonds</span></div>
+        <div class="sc-row"><span class="sc-key">Riester Neuzugänge</span><span class="sc-val">Ab 2027 nicht mehr möglich</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="foerderung">
+  <div class="foe-inner">
+    <div class="section-label">Staatliche Förderung</div>
+    <h2>Bis zu 540 € vom Staat — jährlich.</h2>
+    <p class="foe-sub">Die Förderstruktur ist klar und nachvollziehbar — wenn man sie einmal versteht.</p>
+    <div class="foe-grid">
+      <div class="foe-card">
+        <div class="foe-card-top">Erste Stufe</div>
+        <div class="foe-card-amount">50 %</div>
+        <div class="foe-card-label">Zulage auf Beiträge bis 360 € / Jahr (max. 180 €)</div>
+        <div class="foe-bar-bg"><div class="foe-bar-fill" style="width:50%"></div></div>
+        <div class="foe-bar-label">Du zahlst 30 € / Mo. → Staat zahlt 15 € dazu</div>
+      </div>
+      <div class="foe-card">
+        <div class="foe-card-top">Zweite Stufe</div>
+        <div class="foe-card-amount">25 %</div>
+        <div class="foe-card-label">Zulage auf Beiträge von 360–1.800 € / Jahr (max. +360 €)</div>
+        <div class="foe-bar-bg"><div class="foe-bar-fill" style="width:25%"></div></div>
+        <div class="foe-bar-label">Maximal 540 € Grundzulage im Jahr erreichbar</div>
+      </div>
+    </div>
+
+    <div class="example-table">
+      <div class="et-head">
+        <span>Monatsbeitrag</span><span>Jahresbeitrag</span><span>Staatl. Zulage</span><span>Gesamtbeitrag</span>
+      </div>
+      <div class="et-row"><span>30 €</span><span>360 €</span><span class="amber">180 €</span><span class="mono">540 €</span></div>
+      <div class="et-row"><span>60 €</span><span>720 €</span><span class="amber">270 €</span><span class="mono">990 €</span></div>
+      <div class="et-row"><span>100 €</span><span>1.200 €</span><span class="amber">390 €</span><span class="mono">1.590 €</span></div>
+      <div class="et-row"><span>150 €</span><span>1.800 €</span><span class="amber">540 €</span><span class="mono">2.340 €</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="vergleich">
+  <div class="ver-inner">
+    <div class="section-label">Depot vs. Riester</div>
+    <h2>Was ist der Unterschied zu Riester?</h2>
+    <div class="ver-table">
+      <div class="ver-head"></div>
+      <div class="ver-head">Altersvorsorge-Depot</div>
+      <div class="ver-head amber">Riester (alt)</div>
+
+      <div class="ver-cell label">Anlageinstrument</div>
+      <div class="ver-cell good">ETFs, freie Fondswahl</div>
+      <div class="ver-cell bad">Garantieprodukte, eingeschränkt</div>
+
+      <div class="ver-cell label">Kosten</div>
+      <div class="ver-cell good">Max. 1 % p.a. (Standarddepot)</div>
+      <div class="ver-cell bad">Oft 2–3 % p.a. oder mehr</div>
+
+      <div class="ver-cell label">Transparenz</div>
+      <div class="ver-cell good">Klar und nachvollziehbar</div>
+      <div class="ver-cell bad">Komplex, schwer vergleichbar</div>
+
+      <div class="ver-cell label">Für Selbstständige</div>
+      <div class="ver-cell good">Ja</div>
+      <div class="ver-cell bad">Eingeschränkt / Nein</div>
+
+      <div class="ver-cell label">Neuzugänge ab 2027</div>
+      <div class="ver-cell good">Ja</div>
+      <div class="ver-cell bad">Nicht mehr möglich</div>
+
+      <div class="ver-cell label">Bestandsverträge</div>
+      <div class="ver-cell neutral">—</div>
+      <div class="ver-cell neutral">Laufen weiter (Bestandsschutz)</div>
+    </div>
+    <p style="margin-top:16px;font-size:12px;color:var(--fg3);">Vereinfachte Darstellung. Kein Ersatz für individuelle Beratung. Nach aktuellem Reformstand April 2026.</p>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="faq-inner">
+    <div class="section-label">Häufige Fragen</div>
+    <h2>Fragen zum Depot.</h2>
+    <div class="faq-list" id="faq">
+      <div class="faq-item">
+        <div class="faq-q"><span>Soll ich meinen Riester-Vertrag kündigen?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Kommt auf deinen Vertrag an. Für manche lohnt sich der Bestandsschutz, für andere ist ein Wechsel sinnvoll. Diese Frage lässt sich nicht pauschal beantworten — genau dafür ist das kostenlose Erstgespräch da.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Gilt das Depot auch für Beamte?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Die Förderberechtigung für Beamte ist nach aktuellem Reformstand noch nicht abschließend geklärt. Wir empfehlen, die Entwicklung zu verfolgen und sich individuell beraten zu lassen.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Was passiert, wenn ich das Geld früher brauche?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Das Depot ist für die Altersvorsorge konzipiert — eine vorzeitige Entnahme ist unter bestimmten Bedingungen möglich, führt aber in der Regel zu Rückforderung der staatlichen Zulagen. Die genauen Regelungen werden durch Durchführungsverordnungen festgelegt.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Welche Anbieter wird es geben?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Die konkreten Anbieter stehen noch nicht fest. Nach aktuellem Stand sollen Banken, Versicherungen und Fondsgesellschaften das Depot anbieten dürfen. Wir behalten den Markt im Blick und beraten dich zum richtigen Zeitpunkt.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container" style="max-width:700px;text-align:center;">
+    <div class="section-label on-dark">Nächster Schritt</div>
+    <h2>Ist das Depot <em>das Richtige für dich?</em></h2>
+    <p>Lass es uns gemeinsam herausfinden — kostenlos, unverbindlich, ohne Verkaufsdruck.</p>
+    <a href="erstgespraech.html" class="btn btn-amber btn-lg">Kostenloses Erstgespräch vereinbaren</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="logo" style="color:rgba(255,255,255,0.6);">
+      <svg width="16" height="23" viewBox="0 0 22 34" fill="none">
+        <circle cx="11" cy="5.5" r="3.2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <line x1="11" y1="8.7" x2="11" y2="32" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <path d="M3 23 L11 31 L19 23" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="3" y1="15.5" x2="19" y2="15.5" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text" style="color:rgba(255,255,255,0.6);"><span class="logo-light">Vorsorge</span><span class="logo-bold">hafen</span></span>
+    </a>
+    <div class="footer-links">
+      <a href="index.html">Startseite</a>
+      <a href="erstgespraech.html">Erstgespräch</a>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+  </div>
+  <div class="footer-legal">Zugelassen nach § 34f + § 34d GewO · Henning Meyer · Vorsorgehafen · Nach aktuellem Reformstand, Stand April 2026 · Kein Ersatz für individuelle Beratung.</div>
+</footer>
+
+<script>
+document.getElementById('faq').addEventListener('click', e => {
+  const item = e.target.closest('.faq-item');
+  if (!item) return;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+});
+</script>
+</body>
+</html>
