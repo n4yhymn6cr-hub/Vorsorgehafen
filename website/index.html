@@ -628,7 +628,10 @@ footer { background: #111E2E; padding: 48px 0; }
             <span style="font-family:var(--mono);font-size:16px;color:var(--navy)" id="r-eigen">—</span>
           </div>
           <div class="rc-result-row tertiary">
-            <span class="rr-label" style="color:var(--success)">Gesamtbeitrag ins Depot</span>
+            <div>
+              <div class="rr-label" style="color:var(--success)">Gesamtbeitrag ins Depot</div>
+              <div style="font-size:11px;color:var(--fg3)">Eigenbeitrag + staatliche Förderung</div>
+            </div>
             <span class="rr-value green" id="r-gesamt">—</span>
           </div>
         </div>
@@ -958,7 +961,7 @@ window.addEventListener('scroll', () => {
     document.getElementById('r-gesamt-foerderung').textContent = fmt(totalFoerderung);
     document.getElementById('foerderquote-label').textContent = '+' + foerderQuote + '% deines Jahresbeitrags';
     document.getElementById('r-eigen').textContent = fmt(annual);
-    document.getElementById('r-gesamt').textContent = fmt(gesamtBeitrag) + ' / Jahr';
+    document.getElementById('r-gesamt').textContent = fmt(gesamtBeitrag);
   }
 
   slider.addEventListener('input', updateRechner);
