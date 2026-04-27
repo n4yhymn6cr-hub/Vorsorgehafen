@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.vorsorgehafen.de/sitemap.xml
+Host: www.vorsorgehafen.de
