@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vorsorgehafen erklärt das neue staatliche Altersvorsorge-Depot und berechnet deine persönliche Förderung. Kostenlose Erstberatung durch zugelassene Finanzberater — §34f + §34d GewO.">
 <title>Vorsorgehafen — Dein sicherer Hafen für die Altersvorsorge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -209,7 +210,7 @@ section { width: 100%; }
 .rc-toggle::after { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: white; top: 3px; left: 3px; transition: transform 200ms; }
 .rc-toggle.on { background: var(--navy); }
 .rc-toggle.on::after { transform: translateX(18px); }
-.rc-toggle-label { font-size: 13px; color: var(--fg1); line-height: 1.4; }
+.rc-toggle-label { font-size: 13px; color: var(--fg1); line-height: 1.4; cursor: pointer; }
 .rc-result-detail { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
 .rc-result-row.total { background: var(--amber); }
 .rc-bonus-badge { display: inline-flex; align-items: center; background: var(--amber); color: white; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-top: 8px; }
@@ -537,6 +538,104 @@ footer { background: #111E2E; padding: 48px 0; }
   </div>
 </section>
 
+<!-- ── FÖRDERUNGSRECHNER ── -->
+<section class="rechner" id="rechner">
+  <div class="rechner-inner">
+    <div class="section-label">Förderungsrechner</div>
+    <h2>Wie viel bekommst du vom Staat?</h2>
+    <p class="rechner-sub">Berechne deine persönliche staatliche Förderung — schnell und unverbindlich.</p>
+    <div class="rechner-card">
+      <div class="rc-grid">
+        <div class="rc-inputs">
+          <div class="rc-input-group">
+            <div class="rc-input-label">Dein monatlicher Eigenbeitrag</div>
+            <div class="rc-slider-wrap">
+              <input type="range" class="rc-slider" id="slider" min="10" max="150" value="80" step="5">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--fg3)"><span>10 €</span><span>150 €</span></div>
+            </div>
+            <div style="margin-top:16px;">
+              <div class="rc-value-display" id="monthly-display">80 € / Mo.</div>
+              <div class="rc-value-label" id="annual-display">960 € / Jahr Eigenbeitrag</div>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <div class="rc-input-label">Anzahl Kinder</div>
+            <div class="rc-pill-group" id="kinder-group">
+              <button class="rc-pill active" data-value="0">Keine</button>
+              <button class="rc-pill" data-value="1">1 Kind</button>
+              <button class="rc-pill" data-value="2">2 Kinder</button>
+              <button class="rc-pill" data-value="3">3+</button>
+            </div>
+          </div>
+          <div class="rc-input-group">
+            <div class="rc-input-label">Jahresbruttoeinkommen</div>
+            <div class="rc-pill-group" id="einkommen-group">
+              <button class="rc-pill" data-rate="0.21">bis 17 T€</button>
+              <button class="rc-pill active" data-rate="0.30">17–37 T€</button>
+              <button class="rc-pill" data-rate="0.37">37–57 T€</button>
+              <button class="rc-pill" data-rate="0.42">über 57 T€</button>
+            </div>
+          </div>
+          <div class="rc-input-group" style="margin-bottom:0">
+            <div class="rc-input-label">Berufseinsteiger-Bonus</div>
+            <div class="rc-toggle-wrap">
+              <button class="rc-toggle" id="bonus-toggle" type="button" aria-pressed="false" aria-label="Berufseinsteiger-Bonus aktivieren"></button>
+              <span class="rc-toggle-label" id="bonus-toggle-label">Unter 25 — einmaliger Startbonus von <strong>200 €</strong></span>
+            </div>
+            <div id="bonus-badge" style="display:none;"><span class="rc-bonus-badge">+ 200 € Einmalbonus wird berücksichtigt</span></div>
+          </div>
+        </div>
+        <div class="rc-result" id="result-box">
+          <div class="rc-result-row primary">
+            <div>
+              <div class="rr-label on-dark">Grundzulage</div>
+              <div class="rc-result-detail">staatliche Grundförderung / Jahr</div>
+            </div>
+            <span class="rr-value on-dark" id="r-grundzulage">—</span>
+          </div>
+          <div class="rc-result-row secondary" id="kinderzulage-row" style="display:none;">
+            <div>
+              <div class="rr-label" style="color:var(--navy)">Kinderzulage</div>
+              <div style="font-size:11px;color:var(--fg3)" id="kinderzulage-detail">300 € × 1 Kind</div>
+            </div>
+            <span class="rr-value amber" id="r-kinderzulage">—</span>
+          </div>
+          <div class="rc-result-row secondary" id="bonus-row" style="display:none;">
+            <div>
+              <div class="rr-label" style="color:var(--navy)">Berufseinsteiger-Bonus</div>
+              <div style="font-size:11px;color:var(--fg3)">Einmalig im 1. Beitragsjahr</div>
+            </div>
+            <span class="rr-value amber">200 €</span>
+          </div>
+          <div class="rc-result-row tertiary">
+            <div>
+              <div class="rr-label" style="color:var(--success)">Steuerbonus</div>
+              <div style="font-size:11px;color:var(--fg3)" id="steuerbonus-detail">Sonderausgabenabzug</div>
+            </div>
+            <span class="rr-value green" id="r-steuerbonus">—</span>
+          </div>
+          <div class="rc-result-row total">
+            <div>
+              <div class="rr-label" style="color:white;font-weight:600">Gesamtförderung / Jahr</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75)" id="foerderquote-label">— % deines Jahresbeitrags</div>
+            </div>
+            <span class="rr-value" style="color:white;font-size:22px" id="r-gesamt-foerderung">—</span>
+          </div>
+          <div style="height:1px;background:var(--border);margin:4px 2px;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px;">
+            <span style="font-size:13px;color:var(--fg2)">Dein Eigenbeitrag / Jahr</span>
+            <span style="font-family:var(--mono);font-size:16px;color:var(--navy)" id="r-eigen">—</span>
+          </div>
+          <div class="rc-result-row tertiary">
+            <span class="rr-label" style="color:var(--success)">Gesamtbeitrag ins Depot / Jahr</span>
+            <span class="rr-value green" id="r-gesamt">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="rechner-disclaimer">* Schätzung nach aktuellem Reformstand (Bundestag-Beschluss 27.03.2026). Steuerbonus basiert auf Sonderausgabenabzug inkl. Günstigerprüfung (Grenzsteuersatz × Gesamtbeitrag × 1,055 − Zulagen). Kein Ersatz für individuelle Beratung.</p>
+  </div>
+</section>
 <!-- ── DEPOT ERKLÄRT ── -->
 <section class="depot" id="depot">
   <div class="depot-inner">
@@ -551,7 +650,7 @@ footer { background: #111E2E; padding: 48px 0; }
         <div class="df"><div class="df-dot"></div><div class="df-text">Gilt für Arbeitnehmer <em>und</em> Selbstständige</div></div>
       </div>
       <div style="margin-top:28px;">
-        <a href="#rechner" class="btn btn-ghost">Meine Förderung berechnen →</a>
+        <a href="erstgespraech.html" class="btn btn-ghost">Jetzt Erstgespräch vereinbaren →</a>
       </div>
     </div>
     <div class="depot-box">
@@ -611,97 +710,6 @@ footer { background: #111E2E; padding: 48px 0; }
   </div>
 </section>
 
-<!-- ── FÖRDERUNGSRECHNER ── -->
-<section class="rechner" id="rechner">
-  <div class="rechner-inner">
-    <div class="section-label">Förderungsrechner</div>
-    <h2>Wie viel bekommst du vom Staat?</h2>
-    <p class="rechner-sub">Berechne deine persönliche staatliche Förderung — schnell und unverbindlich.</p>
-    <div class="rechner-card">
-      <div class="rc-grid">
-        <div class="rc-inputs">
-          <div class="rc-input-group">
-            <div class="rc-input-label">Dein monatlicher Eigenbeitrag</div>
-            <div class="rc-slider-wrap">
-              <input type="range" class="rc-slider" id="slider" min="10" max="150" value="80" step="5">
-              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--fg3)"><span>10 €</span><span>150 €</span></div>
-            </div>
-            <div style="margin-top:16px;">
-              <div class="rc-value-display" id="monthly-display">80 € / Mo.</div>
-              <div class="rc-value-label" id="annual-display">960 € / Jahr Eigenbeitrag</div>
-            </div>
-          </div>
-          <div class="rc-input-group">
-            <div class="rc-input-label">Anzahl Kinder</div>
-            <div class="rc-pill-group" id="kinder-group">
-              <button class="rc-pill active" data-value="0">Keine</button>
-              <button class="rc-pill" data-value="1">1 Kind</button>
-              <button class="rc-pill" data-value="2">2 Kinder</button>
-              <button class="rc-pill" data-value="3">3+</button>
-            </div>
-          </div>
-          <div class="rc-input-group">
-            <div class="rc-input-label">Jahresbruttoeinkommen</div>
-            <div class="rc-pill-group" id="einkommen-group">
-              <button class="rc-pill" data-rate="0.21">bis 17 T€</button>
-              <button class="rc-pill active" data-rate="0.30">17–37 T€</button>
-              <button class="rc-pill" data-rate="0.37">37–57 T€</button>
-              <button class="rc-pill" data-rate="0.42">über 57 T€</button>
-            </div>
-          </div>
-          <div class="rc-input-group" style="margin-bottom:0">
-            <div class="rc-input-label">Berufseinsteiger-Bonus</div>
-            <div class="rc-toggle-wrap">
-              <button class="rc-toggle" id="bonus-toggle" aria-pressed="false"></button>
-              <span class="rc-toggle-label">Unter 25 — einmaliger Startbonus von <strong>200 €</strong></span>
-            </div>
-            <div id="bonus-badge" style="display:none;"><span class="rc-bonus-badge">+ 200 € Einmalbonus wird berücksichtigt</span></div>
-          </div>
-        </div>
-        <div class="rc-result" id="result-box">
-          <div class="rc-result-row primary">
-            <div>
-              <div class="rr-label on-dark">Grundzulage</div>
-              <div class="rc-result-detail">staatliche Grundförderung / Jahr</div>
-            </div>
-            <span class="rr-value on-dark" id="r-grundzulage">—</span>
-          </div>
-          <div class="rc-result-row secondary" id="kinderzulage-row" style="display:none;">
-            <div>
-              <div class="rr-label" style="color:var(--navy)">Kinderzulage</div>
-              <div style="font-size:11px;color:var(--fg3)" id="kinderzulage-detail">300 € × 1 Kind</div>
-            </div>
-            <span class="rr-value amber" id="r-kinderzulage">—</span>
-          </div>
-          <div class="rc-result-row tertiary">
-            <div>
-              <div class="rr-label" style="color:var(--success)">Steuerbonus</div>
-              <div style="font-size:11px;color:var(--fg3)" id="steuerbonus-detail">Sonderausgabenabzug</div>
-            </div>
-            <span class="rr-value green" id="r-steuerbonus">—</span>
-          </div>
-          <div class="rc-result-row total">
-            <div>
-              <div class="rr-label" style="color:white;font-weight:600">Gesamtförderung / Jahr</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.75)" id="foerderquote-label">— % deines Jahresbeitrags</div>
-            </div>
-            <span class="rr-value" style="color:white;font-size:22px" id="r-gesamt-foerderung">—</span>
-          </div>
-          <div style="height:1px;background:var(--border);margin:4px 2px;"></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px;">
-            <span style="font-size:13px;color:var(--fg2)">Dein Eigenbeitrag / Jahr</span>
-            <span style="font-family:var(--mono);font-size:16px;color:var(--navy)" id="r-eigen">—</span>
-          </div>
-          <div class="rc-result-row tertiary">
-            <span class="rr-label" style="color:var(--success)">Gesamtbeitrag ins Depot / Jahr</span>
-            <span class="rr-value green" id="r-gesamt">—</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p class="rechner-disclaimer">* Schätzung nach aktuellem Reformstand (Bundestag-Beschluss 27.03.2026). Steuerbonus basiert auf Sonderausgabenabzug inkl. Günstigerprüfung (Grenzsteuersatz × Gesamtbeitrag × 1,055 − Zulagen). Kein Ersatz für individuelle Beratung.</p>
-  </div>
-</section>
 
 <!-- ── FÜR WEN ── -->
 <section class="fuer-wen">
@@ -959,11 +967,15 @@ window.addEventListener('scroll', () => {
     updateRechner();
   });
 
-  document.getElementById('bonus-toggle').addEventListener('click', function() {
-    const isOn = this.classList.toggle('on');
-    this.setAttribute('aria-pressed', isOn);
+  const bonusBtn = document.getElementById('bonus-toggle');
+  function handleBonusToggle() {
+    const isOn = bonusBtn.classList.toggle('on');
+    bonusBtn.setAttribute('aria-pressed', isOn);
     document.getElementById('bonus-badge').style.display = isOn ? 'block' : 'none';
-  });
+    document.getElementById('bonus-row').style.display = isOn ? 'flex' : 'none';
+  }
+  bonusBtn.addEventListener('click', handleBonusToggle);
+  document.getElementById('bonus-toggle-label').addEventListener('click', handleBonusToggle);
 
   updateRechner();
 })();
